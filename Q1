@@ -1,0 +1,27 @@
+processes = ['P1', 'P2', 'P3', 'P4']
+burst_times = [6, 8, 7, 3]
+sorted_processes = sorted(zip(processes, burst_times), key=lambda x: x[1])
+
+completion_times = []
+turnaround_times = []
+waiting_times = []
+
+current_time = 0
+
+for process, burst in sorted_processes:
+    current_time += burst  
+    completion_times.append(current_time)
+    turnaround_times.append(current_time)        
+    waiting_times.append(current_time - burst)   
+
+print("Q1: SJF Scheduling")
+print(f"{'Process':<10}{'Burst Time':<12}{'Completion':<12}{'Turnaround':<12}{'Waiting':<10}")
+for i in range(len(sorted_processes)):
+    process, burst = sorted_processes[i]
+    print(f"{process:<10}{burst:<12}{completion_times[i]:<12}{turnaround_times[i]:<12}{waiting_times[i]:<10}")
+
+average_turnaround = sum(turnaround_times) / len(turnaround_times)
+average_waiting = sum(waiting_times) / len(waiting_times)
+
+print(f"\nAverage Turnaround Time: {average_turnaround}")
+print(f"Average Waiting Time: {average_waiting}")
