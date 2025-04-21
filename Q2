@@ -1,0 +1,22 @@
+requests = [137, 240, 179, 75, 118, 29, 15, 51]
+current_position = 55
+total_seek_distance = 0
+seek_steps = []
+
+print("SSTF Disk Scheduling - Step by Step:\n")
+
+step_number = 1
+
+while requests:
+    closest = min(requests, key=lambda x: abs(current_position - x))
+    distance = abs(current_position - closest)
+    total_seek_distance += distance
+    
+    print(f"Step {step_number}: Move from {current_position} to {closest} → Seek = {distance}")
+    
+    seek_steps.append((current_position, closest, distance))
+    current_position = closest
+    requests.remove(closest)
+    step_number += 1
+
+print(f"\nTotal Seek Operations = {total_seek_distance}")
